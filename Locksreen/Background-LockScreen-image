@@ -2,8 +2,6 @@ New-Item HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP -For
 
 #Variable Creation
 $RegPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP"
-$BackgroundImageURL = "Type URL here"
-$LockscreenImageURL = "Type URL Here"
 $ImageDestinationFolder = "C:\ProgramData\Intune\Logos"
 $Backgroundimage = "$ImageDestinationFolder\background.jpg"
 $LockScreenImage = "$ImageDestinationFolder\LockScreen.jpg"
@@ -12,8 +10,9 @@ $LockScreenImage = "$ImageDestinationFolder\LockScreen.jpg"
 md $ImageDestinationFolder -erroraction silentlycontinue
 
 #Download image file
-Start-BitsTransfer -Source $BackgroundImageURL -Destination "$Backgroundimage"
-Start-BitsTransfer -Source $LockscreenImageURL -Destination "$LockScreenimage"
+Invoke-WebRequest -Uri "IMAGE URL " -OutFile "$ImageDestinationFolder\background.jpg"
+Invoke-WebRequest -Uri "IMAGE URL" -OutFile "$ImageDestinationFolder\lockscreen.jpg"
+
 
 #Lockscreen Registry Keys
 New-ItemProperty -Path $RegPath -Name LockScreenImagePath -Value $LockScreenImage -PropertyType String -Force | Out-Null
